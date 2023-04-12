@@ -1,0 +1,26 @@
+{
+    "development": {
+        "multiprocessor": false,
+        "server": {
+            "http": {
+                "port": "[SERV_PORT]"
+            }
+        },
+        "service":{
+            "endpoint" : "http://8.8.8.8"
+        }
+    },
+    
+    "production": {
+        "multiprocessor": false,
+        "server": {
+            "http": {
+                "port": "1[SERV_PORT]"
+            }
+        },
+        "service":{
+            "endpoint" : "http://8.8.8.8"
+        }
+    }
+
+}
