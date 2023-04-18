@@ -72,6 +72,9 @@ router.post('/serv1'  ,
 //    \_/_/ \_\____|___|___/_/ \_\_| |___\___/|_|\_| |___/_/\_\___/
                                                                 
 
+// // check('docDate', 'Missing Parameter: docDate').exists(),
+// // check('docDate', 'The docDate field must be array dd/mm/YYYY' ).if(check('docDate').exists()).matches(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/) ,
+
 // // check('email'  , 'Missing Parameter: email').exists(),
 // // check('email'  , 'Must be a string of a correct email ')
 // // .if(check('email').exists()).matches(/^[A-Za-z0-9+_.-]+@(.+)+[a-zA-Z]{2,6}$/),

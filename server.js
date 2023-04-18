@@ -48,4 +48,13 @@ app.on("error", function (err) {
     console.error("GEN ERROR : " + err);
 });
 
+/*DB
+if (config.database.init) {
+    var dataBase    = require('./utils/database');
+    dataBase.connect();
+    process.on ('SIGINT', dataBase.gracefulExit)
+            .on('SIGTERM', dataBase.gracefulExit);
+}
+DB*/
+
 exports = app;

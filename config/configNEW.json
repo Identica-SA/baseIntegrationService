@@ -6,6 +6,10 @@
                 "port": "[SERV_PORT]"
             }
         },
+        "database": {
+            "init": true,
+            "url": "[DB_URL]"
+        },
         "service":{
             "endpoint" : "http://8.8.8.8"
         }
@@ -17,6 +21,10 @@
             "http": {
                 "port": "1[SERV_PORT]"
             }
+        },
+        "database": {
+            "init": true,
+            "url": "[DB_URL]"
         },
         "service":{
             "endpoint" : "http://8.8.8.8"
