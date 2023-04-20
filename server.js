@@ -48,7 +48,7 @@ app.on("error", function (err) {
     console.error("GEN ERROR : " + err);
 });
 
-/*DB
+/*
 if (config.database.init) {
     var dataBase    = require('./utils/database');
     dataBase.connect();
