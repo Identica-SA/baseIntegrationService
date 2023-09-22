@@ -5,7 +5,7 @@ const { default: axios } = require("axios")    ;
 
 var  serviceFunctions = {
 
-    serv1     : async function (req){
+    servTest     : async function (req){
         let resServ = {
             code   : undefined , 
             error  : undefined , 
@@ -13,10 +13,6 @@ var  serviceFunctions = {
         };
 
         try{
-            console.log (`Data received: ${req.body}`)
-            const data = {
-                "any":123,
-            }
 
             const servConfig = {
                 method: 'post',
@@ -25,7 +21,9 @@ var  serviceFunctions = {
                 headers: { 
                     'Content-Type': 'application/json'
                 },
-                data : data
+                data :{
+                    hereBody: "Here Should be the body of the Request"
+                }
             };
 
             response = await axios(servConfig)
@@ -35,8 +33,8 @@ var  serviceFunctions = {
         
 
         } catch(error)  {
-            console.error(`Error on serv1: ${error}`);
-            throw (resServ);
+            console.error(`Error on servTest: ${error}`);
+            throw ("Error On Serv");
         }
 
     },

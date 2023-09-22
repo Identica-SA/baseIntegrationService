@@ -11,30 +11,37 @@ process.on("uncaughtException", function (err) {
     console.error("ERROR [NAME_INIT]-ROUTES: " + err);
 });
 
+// **************** ROUTES FUNCTIONS *****************
 const serv1Route = async (body,res,next) => {
     try{
-        var resServ1 = await [NAME_INIT]Controllers.serv1(body);
-        var responseServ1 = { };
+        var resServ = await [NAME_INIT]Controllers.servTest(body);
+        var responseServ = { };
         statusCode = 500 ;
-        if (!resServ1) {
-            responseServ1.code = "[NAME_INIT]000";
-            responseServ1.error = "Error General";
+        if (!resServ) {
+            responseServ.code = "[NAME_INIT]000";
+            responseServ.error = "Error General";
         }
-        if (typeof resServ1 === "string") {
-            responseServ1.code = "[NAME_INIT]003";
-            responseServ1.error = resServ1;
+        if (typeof resServ === "string") {
+            responseServ.code = "[NAME_INIT]003";
+            responseServ.error = resServ;
             
+        }
+        // If Controller Return Error.
+        if (resServ?.error){
+            responseServ.code = "[NAME_INIT]004";
+            responseServ.error = resServ;
         } else {
             statusCode = 200 ;
-            responseServ1.code = "[NAME_INIT]001";
-            responseServ1.message = resServ1;
+            responseServ.code = "[NAME_INIT]001";
+            responseServ.message = resServ;
         }
         
-        return res.status(statusCode).json(responseServ1);
+        return res.status(200).json(responseServ);
 
     } catch (error) {
+        statusCode = 500 ;
         console.error ("serv1Route SERVER ERROR " + error );
-        return res.status(500).json({
+        return res.status(200).json({
             code: '[NAME_INIT]005' ,
             error: "SERV ERROR"
         })
@@ -43,7 +50,7 @@ const serv1Route = async (body,res,next) => {
 }
 
 
-// ------------------------ HELPER FUNCTION ------------------------
+// **************** CHECK INPUT FUNCTION *****************
 const checkInput = (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -56,7 +63,9 @@ const checkInput = (req, res, next) => {
 };
 
 
-router.post('/serv1'  , 
+// **************** ROUTES *****************
+
+router.post('/serv'  , 
     check('id', 'Missing Parameter: id').exists() ,
     check('id', 'Parameter: "id" should be a COLOMBIAN Identification Number' ).
     if(check('id').exists()).isNumeric().isLength({min: 5, max:10}),
