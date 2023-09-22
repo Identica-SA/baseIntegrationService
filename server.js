@@ -3,7 +3,7 @@ var cors        = require("cors");
 var http        = require("http");
 var express     = require("express");
 
-var intRoute    = require('./routes/[NAME_INIT]Route');
+var intRoute    = require('./routes/[NAME_INIT]Routes');
 var config      = require("./config/config.json")[process.env.NODE_ENV || 'development'];
 
 // --- VARIABLES ---
@@ -56,5 +56,10 @@ if (config.database.init) {
             .on('SIGTERM', dataBase.gracefulExit);
 }
 DB*/
+
+// npm i -s cors 
+// npm i -s axios 
+// npm i -s express 
+// npm i -s express-validator 
 
 exports = app;

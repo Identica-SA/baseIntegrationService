@@ -11,7 +11,7 @@ Docs/
 
 # Ignorar archivos de credenciales o configuracion 
 config/creds.json
-# config/config.json
+config/config.json
 
 # Logs
 logs
