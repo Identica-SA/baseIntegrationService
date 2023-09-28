@@ -8,7 +8,10 @@
         },
         "database": {
             "init": true,
-            "url": "[DB_URL]"
+            "connectionType":"mongodb",
+            "url": "[DB_URL]",
+            "user": "---",
+            "password:": "---"
         },
         "service":{
             "endpoint" : "http://8.8.8.8"
@@ -24,7 +27,10 @@
         },
         "database": {
             "init": true,
-            "url": "[DB_URL]"
+            "connectionType":"mongodb+srv",
+            "url": "[DB_URL]",
+            "user": "---",
+            "password:": "---"
         },
         "service":{
             "endpoint" : "http://8.8.8.8"

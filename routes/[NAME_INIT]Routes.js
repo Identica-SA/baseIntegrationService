@@ -1,4 +1,4 @@
-var express = require('express'),
+const express = require('express'),
     router  = express.Router();
 const { validationResult, check , oneOf } = require('express-validator');
 var [NAME_INIT]Controllers = require('../controllers/[NAME_INIT]Controller');
@@ -12,7 +12,7 @@ process.on("uncaughtException", function (err) {
 });
 
 // **************** ROUTES FUNCTIONS *****************
-const serv1Route = async (body,res,next) => {
+const servRoute = async (body,res,next) => {
     try{
         var resServ = await [NAME_INIT]Controllers.servTest(body);
         var responseServ = { };
@@ -71,7 +71,7 @@ router.post('/serv'  ,
     if(check('id').exists()).isNumeric().isLength({min: 5, max:10}),
 
     checkInput,
-    serv1Route  
+    servRoute  
 );
 
 

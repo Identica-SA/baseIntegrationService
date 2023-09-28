@@ -1,5 +1,9 @@
-let config    = require('./../config/config.json')[process.env.NODE_ENV || 'development'];
-var mongoose  = require('mongoose');
+const config    = require('./../config/config.json')[process.env.NODE_ENV || 'development'];
+const mongoose  = require('mongoose');
+
+//------- CONST URL -------
+
+const CONN_URL = `${config.database.connectionType}://${config.database.user}:${config.database.password}@${config.database.url}`;
 
 // ------------- FUNCTION DEFINITION  ---------------
 var connect = () => {
@@ -16,7 +20,7 @@ var connect = () => {
   });
 
   db.on('connected', function () {
-    console.log('MongoDB connected!: ' + config.database.url);
+    console.log('MongoDB connected!');
   });
 
   db.once('open', function () {
@@ -29,25 +33,29 @@ var connect = () => {
 
   db.on('disconnected', function () {
     console.log('MongoDB disconnected!');
-    mongoose.connect(config.database.url, {
+    mongoose.connect(CONN_URL, {
       useNewUrlParser: true,
       useUnifiedTopology: true
     });
   });
 
-  mongoose.connect(config.database.url, {
+  mongoose.connect(CONN_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   });
 };
 
-var gracefulExit = () => {
-  mongoose.connection.close(function () {
-    console.log(
+const gracefulExit = async () => {
+  try {
+    await mongoose.connection.close();
+    utils.logging(
       'Mongoose default connection with DB is disconnected through app termination'
     );
     process.exit(0);
-  });
+  } catch (error) {
+    console.error('Error during graceful exit: ', error);
+    process.exit(1);
+  }
 };
 
 module.exports = { connect, gracefulExit };

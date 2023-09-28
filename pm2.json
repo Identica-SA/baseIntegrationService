@@ -10,5 +10,8 @@
     "pid_file": "./logs/[NAME_INIT].pid.log",
     "env_production" : {
         "NODE_ENV": "production"
+    },
+    "env_qa" : {
+        "NODE_ENV": "qa"
     }
 }

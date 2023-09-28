@@ -1,5 +1,6 @@
 var config       = require('../config/config.json')[process.env.NODE_ENV || 'development'];
-var myUtils     = require('../utils/utils');
+var myUtils      = require('../utils/utils');
+var requestCall  = require('../utils/requestCall');
 const { default: axios } = require("axios")    ;
 
 
@@ -26,7 +27,8 @@ var  serviceFunctions = {
                 }
             };
 
-            response = await axios(servConfig)
+            
+            response = await requestCall.performRequest(servConfig);
             console.log(JSON.stringify(response.data));
             resServ.message = "Servicio consumido";
             return ( resServ )

@@ -1,7 +1,8 @@
 
-var cors        = require("cors");
-var http        = require("http");
-var express     = require("express");
+const cors      = require("cors");
+const http      = require("http");
+const express   = require("express");
+const process   = require('node:process');
 
 var intRoute    = require('./routes/[NAME_INIT]Routes');
 var config      = require("./config/config.json")[process.env.NODE_ENV || 'development'];
@@ -20,6 +21,7 @@ if (process.env.NODE_ENV == "production"){
     console.log ("DEVELOPMENT");
 }
 
+app.disable('x-powered-by');
 app.use(cors());
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
@@ -32,11 +34,10 @@ app.get('/test', function (req, res) {
   });
 })
 
-var port    = config.server.http.port;
-
 // ***** HTTP SERVER *****
-var httpServer = http.createServer(app).listen(port, function () {
-    console.log( "HTTP listen port " + port);
+var httpServer = http.createServer(app).listen(config.server.http.port, function () {
+    console.log( `Server listening on port ${server.address().port}` );
+    console.log( `Worker ${process.pid} started` );
 });
 
 // ***** ERROR CATCH *****
@@ -57,9 +58,7 @@ if (config.database.init) {
 }
 DB*/
 
-// npm i -s cors 
-// npm i -s axios 
-// npm i -s express 
-// npm i -s express-validator 
+
+
 
 exports = app;
