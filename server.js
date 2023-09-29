@@ -36,7 +36,7 @@ app.get('/test', function (req, res) {
 
 // ***** HTTP SERVER *****
 var httpServer = http.createServer(app).listen(config.server.http.port, function () {
-    console.log( `Server listening on port ${server.address().port}` );
+    console.log( `Server listening on port ${config.server.http.port}` );
     console.log( `Worker ${process.pid} started` );
 });
 
