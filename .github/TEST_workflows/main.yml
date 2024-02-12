@@ -1,10 +1,13 @@
 name: your-service-release
+run-name: Testing GitHub Actions for ${{ github.repository }}
 on:
   push:
-    branches: ["main"]
+    branches: [main, develop]
+  workflow_dispatch:
 
 jobs:
   gitPull:
+    if: ${{ github.event_name != 'workflow_dispatch' && contains(github.ref, 'main') }}
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v3
@@ -17,3 +20,28 @@ jobs:
         # npm i
         # git pull # Cannot Do this because of Git ssh credentials in server
         # pm2 start YOUR_SERVICE
+
+  developTest:
+    if: ${{ contains(github.ref, 'develop') }}
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v3
+      - name: ActionsSetup
+        uses: actions/setup-node@v3
+
+      - name: Run Test Script
+        working-directory: ../../../../../opt/identicasa/[NAME_SERV]
+        run: |
+          pwd
+
+  testDispatch:
+    if: ${{ github.event_name == 'workflow_dispatch' }}
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v3
+      - name: ActionsSetup
+        uses: actions/setup-node@v3
+
+      - name: Run Test Dispatch Script
+        run: |
+          pwd

@@ -1,5 +1,6 @@
-const express = require('express'),
-    router  = express.Router();
+const express = require('express');
+const router  = express.Router();
+const IdentiError = require('../models/identi-error')
 const { validationResult, check , oneOf } = require('express-validator');
 var [NAME_INIT]Controllers = require('../controllers/[NAME_INIT]Controller');
 
@@ -40,7 +41,7 @@ const servRoute = async (body,res,next) => {
 
     } catch (error) {
         statusCode = 500 ;
-        console.error ("serv1Route SERVER ERROR " + error );
+        console.error ("[NAME_INIT] serv1Route SERVER ERROR " + error );
         return res.status(200).json({
             code: '[NAME_INIT]005' ,
             error: "SERV ERROR"

@@ -1,17 +1,17 @@
 {
-    "name": "[NAME_INIT]",
-    "script": "server.js",
-    "log_date_format": "YYYY-DD-MM HH:mm:ss.SSS",   
-    "watch": "true",
-    "ignore_watch": ["node_modules"],
-    "log_file": "./logs/[NAME_INIT].outerr.log",
-    "error_file": "./logs/[NAME_INIT].err.log",
-    "out_file": "./logs/[NAME_INIT].out.log",
-    "pid_file": "./logs/[NAME_INIT].pid.log",
-    "env_production" : {
-        "NODE_ENV": "production"
-    },
-    "env_qa" : {
-        "NODE_ENV": "qa"
-    }
+  "name": "[NAME_INIT]",
+  "script": "server.js",
+  "log_date_format": "YYYY-MM-DD HH:mm:ss.SSS",
+  "watch": "true",
+  "ignore_watch": ["node_modules"],
+  "log_file": "./logs/[NAME_INIT].outerr.log",
+  "error_file": "./logs/[NAME_INIT].err.log",
+  "out_file": "./logs/[NAME_INIT].out.log",
+  "pid_file": "./logs/[NAME_INIT].pid.log",
+  "env_production": {
+    "NODE_ENV": "production"
+  },
+  "env_qa": {
+    "NODE_ENV": "qa"
+  }
 }
