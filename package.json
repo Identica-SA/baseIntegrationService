@@ -1,7 +1,7 @@
 {
-  "name": "[NAME_INIT]",
+  "name": "[NAME_SERV]",
   "version": "1.0.0",
-  "description": "[NAME_INIT]",
+  "description": "[NAME_SERV]",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

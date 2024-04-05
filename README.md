@@ -17,16 +17,16 @@
 
 ## **SERVICIOS/END POINTS**
 
-- Puerto QA = [SERV_PORT]
 - Puerto PROD = 1[SERV_PORT]
+- Puerto QA = 2[SERV_PORT]
 
 Rutas :
 
-| Servicio        | Metodo | URL    | LOCAL TEST | QA SERVER TEST |
-| --------------- | ------ | ------ | ---------- | -------------- |
-| Test service up | GET    | /test  | ⛔         | ⛔             |
-| SERV1           | POST   | /SERV1 | ⛔         | ⛔             |
-| SERV2           | POST   | /SERV2 | ⛔         | ⛔             |
+| Servicio        | Metodo |     URL    | LOCAL TEST | QA SERVER TEST |
+| --------------- | ------ | ---------- | ---------- | -------------- |
+| Test service up | GET    | /api/test  | ⛔         | ⛔             |
+| SERV1           | POST   | /api/SERV1 | ⛔         | ⛔             |
+| SERV2           | POST   | /api/SERV2 | ⛔         | ⛔             |
 
 ## **ENUMERACION DE SERVICIOS PARA FLOW**
 
