@@ -102,4 +102,4 @@ async function servTest(req) {
 // 	}
 // }
 
-module.exports = servTest
+module.exports = { servTest }
