@@ -1,6 +1,5 @@
-var config = require("../config/config.json")[
-  process.env.NODE_ENV || "development"
-];
+const codes = require('./codes')
+const { validationResult } = require('express-validator')
 
 //   _  _ ___ _    ___ ___ _   _ _      ___ _   _ _  _  ___ _____ ___ ___  _  _ ___
 //  | || | __| |  | _ \ __| | | | |    | __| | | | \| |/ __|_   _|_ _/ _ \| \| / __|
@@ -23,31 +22,61 @@ function getHeaders(form) {
   });
 }
 
-function sendResponseAndLogging(res, status, data) {
-  logging(data);
-  return res.status(status).send(data);
+function isNull(value) {
+  return value === null
 }
 
-function logging(data) {
-  if (data instanceof Object) {
-    if (
-      data.code &&
-      typeof data.code === "string" &&
-      data.code.endsWith("001")
-    ) {
-      const tagsToRemove = ["pdf", "token"];
-      const newData = removeProperties(data, tagsToRemove);
-      console.log(JSON.stringify(newData));
-    } else console.log(JSON.stringify(data));
-  } else console.log(data);
+function isUndefined(value) {
+  return value === undefined
 }
 
-function error(data) {
-  if (data instanceof Object) console.error(JSON.stringify(data));
-  else console.error(data);
+function isObject(value) {
+  return typeof value === 'object' && value !== null && !Array.isArray(value)
 }
 
-module.exports.logging    = logging;
-module.exports.error      = error;
-module.exports.getHeaders = getHeaders;
-module.exports.sendResponseAndLogging = sendResponseAndLogging;
+function isString(value) {
+  return typeof value === 'string'
+}
+
+function isFunction(value) {
+  return typeof value === 'function'
+}
+
+function isError(value) {
+  switch (Object.prototype.toString.call(value)) {
+    case '[object Error]':
+      return true
+    case '[object Exception]':
+      return true
+    case '[object DOMException]':
+      return true
+    default:
+      return value instanceof Error
+  }
+}
+
+function checkInput(req, res, next) {
+  const errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    return res.status(400).send({ ...codes.[NAME_INIT]002, error: errors.array() })
+  }
+  next()
+}
+
+function errorHandler(err, _req, res, _next) {
+  const { status, name, ...data } = err
+  return res.status(status).send(data)
+}
+
+module.exports = {
+  getHeaders,
+  isNull,
+  isUndefined,
+  isObject,
+  isString,
+  isFunction,
+  isError,
+  checkInput,
+  errorHandler
+}
+

@@ -1,29 +1,59 @@
-const axios = require('axios');
-var utils = require('../utils/utils');
+const axios = require('axios')
+const buffer = require('node:buffer').Buffer
 
-function performRequest(servConfig) {
-  return new Promise((resolve, reject) => {
-    const requestConfig = {
-        method: method,
-        url: url + endpoint,
-        responseType: 'json',
-        responseEncoding: 'utf8',
-        headers: {
-          ...header,
-          'content-type': 'application/json',
-          'content-length': Buffer.byteLength(JSON.stringify(data), 'utf8')
-        },
-        data: data
-    };
+const soapRequest = require('easy-soap-request');
+const https = require('node:https');
+// Create a custom agent to bypass SSL certificate verification
+const agent = new https.Agent({
+  rejectUnauthorized: false
+});
 
-    // utils.logging('Connecting: ' + servConfig.url + ' ' + servConfig.method);
+const keyToRemove = ['accept', 'accept-encoding', 'connection', 'content-length', 'content-type', 'host']
 
-    axios(servConfig).then((response) => {
-        resolve(response);
-    }).catch((err) => {
-        reject(err);
-    });
-  });
+
+async function requestCallRest(url, endpoint, method, data, header={}) {
+  try {
+    for (const key of keyToRemove) {
+      if (Object.prototype.hasOwnProperty.call(header, key)) {
+        delete header[key]
+      }
+    }
+    const configAxios = {
+      method,
+      url: url + endpoint,
+      responseType: 'json',
+      responseEncoding: 'utf8',
+      headers: {
+        ...header,
+        'content-type': 'application/json',
+        'content-length': buffer.byteLength(JSON.stringify(data), 'utf8')
+      },
+      data
+    }
+
+    return await axios(configAxios)
+  } catch (error) {
+    throw error
+  }
+
 }
 
-exports.performRequest = performRequest;
+
+async function requestCallXml (xml, method, url) {
+    try {
+      const sampleHeaders = {
+        'Content-Type': 'text/xml;charset=UTF-8',
+        'soapAction': method,
+      };
+      const { response } = await soapRequest({ url: url, headers: sampleHeaders, xml: xml, agent }); // Optional timeout parameter(milliseconds)
+      return response;
+    } catch (error) {
+      throw error
+    }
+  }
+};
+
+module.exports = {
+  requestCallRest,
+  requestCallXml  
+}

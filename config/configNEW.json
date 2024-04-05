@@ -1,6 +1,6 @@
 {
     "development": {
-        "multiprocessor": false,
+        "tagsToRemove": ["pdf", "token", "hash"],
         "server": {
             "http": {
                 "port": "[SERV_PORT]"
@@ -14,12 +14,33 @@
             "password:": "---"
         },
         "service":{
-            "endpoint" : "http://8.8.8.8"
+            "url": "http://8.8.8.8",
+            "method": "POST",
+            "endpoint" : "/api/test"
         }
     },
-    
+    "qa": {
+        "tagsToRemove": ["pdf", "token", "hash"],
+        "server": {
+            "http": {
+                "port": "2[SERV_PORT]"
+            }
+        },
+        "database": {
+            "init": true,
+            "connectionType":"mongodb+srv",
+            "url": "[DB_URL]",
+            "user": "---",
+            "password:": "---"
+        },
+        "service":{
+            "url": "http://8.8.8.8",
+            "method": "POST",
+            "endpoint" : "/api/test"
+        }
+    },
     "production": {
-        "multiprocessor": false,
+        "tagsToRemove": ["pdf", "token", "hash"],
         "server": {
             "http": {
                 "port": "1[SERV_PORT]"
@@ -33,7 +54,9 @@
             "password:": "---"
         },
         "service":{
-            "endpoint" : "http://8.8.8.8"
+            "url": "http://8.8.8.8",
+            "method": "POST",
+            "endpoint" : "/api/test"
         }
     }
 

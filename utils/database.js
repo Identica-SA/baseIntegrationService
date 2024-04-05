@@ -1,57 +1,69 @@
-const config = require('./../config/config.json')[process.env.NODE_ENV || 'development']
+#!/usr/bin/env node
+const process = require('node:process')
 const mongoose = require('mongoose')
+const Logger = require('./logger')
+const logger = new Logger()
+const config = require('./../config/config.json')[process.env.NODE_ENV || 'development']
 
-//------- CONST URL -------
-const CONN_URL = `${config.database.connectionType}://${config.database.user}:${config.database.password}@${config.database.url}`
+const conUrl = `${config.database.connectionType}://${config.database.user}:${config.database.password}@${config.database.url}`
+// ESTA ES LA URL FORMADA CON LOS DATOS DEL CONFIG QUE DEBE QUEDAR ASI:
+// "database": {
+//   "init": true,
+//   "connectionType":"mongodb",
+//   "url": "lo que esta despues del @",
+//   "user": "identiAdmin",
+//   "password:": "identica"
+// }
+// LO UNICO RARO ES EL connectionType Y ES DEBIDO A LA DIFERENCIA DE URL DE BD LOCAL A ATLAS
 
 // ------------- FUNCTION DEFINITION  ---------------
-var connect = () => {
+const connect = () => {
   mongoose.set('strictQuery', false)
-  var db = mongoose.connection
+  const db = mongoose.connection
 
   db.on('connecting', function () {
-    console.log('connecting to MongoDB...')
+    logger.info('connecting to MongoDB...')
   })
 
   db.on('error', function (error) {
-    console.log('Error in MongoDb connection: ' + error)
+    logger.info('Error in MongoDb connection: ' + error)
     mongoose.disconnect()
   })
 
   db.on('connected', function () {
-    console.log('MongoDB connected!')
+    logger.info('MongoDB connected!') // QUITÉ DE AQUI QUE CONSOLEE LA URL DE CONEXION A LA BD, MAXIMO LE ACEPTO UNA VARIABLE QUE DIGA SI FUE QA O PROD
   })
 
   db.once('open', function () {
-    console.log('MongoDB connection opened!')
+      logger.info('MongoDB connection opened!')
   })
 
   db.on('reconnected', function () {
-    console.log('MongoDB reconnected!')
+    logger.info('MongoDB reconnected!')
   })
 
   db.on('disconnected', function () {
-    console.log('MongoDB disconnected!')
-    mongoose.connect(CONN_URL, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
+    logger.info('MongoDB disconnected!')
+    mongoose.connect(conUrl, {
+      // conURL esta arriba
       maxPoolSize: 50
     })
   })
 
-  mongoose.connect(CONN_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
+  mongoose.connect(conUrl, {
+    // conURL esta arriba
+    maxPoolSize: 50
   })
 }
 
+// AQUI REEMPLACÉ POR EL METODO CON AWAIT, POR LO QUE EL GRACEFUL EXIT ESTA TIRANDO ERROR
 const gracefulExit = async () => {
   try {
     await mongoose.connection.close()
-    utils.logging('Mongoose default connection with DB is disconnected through app termination')
+    logger.info('Mongoose default connection with DB is disconnected through app termination')
     process.exit(0)
-  } catch (error) {
-    console.error('Error during graceful exit: ', error)
+  } catch (err) {
+    utils.error('Error during graceful exit: ', err)
     process.exit(1)
   }
 }

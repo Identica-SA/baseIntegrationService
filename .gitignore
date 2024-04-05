@@ -21,6 +21,8 @@ Docs/
 
 # Ignorar posibles archivos multimedia 
 *.png
+*.jpg
+*.jpeg
 *.pdf
 
 # Ignorar archivos de credenciales o configuracion 
