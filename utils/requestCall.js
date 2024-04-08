@@ -40,16 +40,15 @@ async function requestCallRest(url, endpoint, method, data, header={}) {
 
 
 async function requestCallXml (xml, method, url) {
-    try {
-      const sampleHeaders = {
-        'Content-Type': 'text/xml;charset=UTF-8',
-        'soapAction': method,
-      };
-      const { response } = await soapRequest({ url: url, headers: sampleHeaders, xml: xml, agent }); // Optional timeout parameter(milliseconds)
-      return response;
-    } catch (error) {
-      throw error
-    }
+  try {
+    const sampleHeaders = {
+      'Content-Type': 'text/xml;charset=UTF-8',
+      'soapAction': method,
+    };
+    const { response } = await soapRequest({ url: url, headers: sampleHeaders, xml: xml, agent }); // Optional timeout parameter(milliseconds)
+    return response;
+  } catch (error) {
+    throw error
   }
 };
 

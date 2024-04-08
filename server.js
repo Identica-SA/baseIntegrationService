@@ -2,7 +2,7 @@ const cors = require('cors')
 const http = require('http')
 const express = require('express')
 const process = require('node:process')
-const Logger = require('./utility/logger')
+const Logger = require('./utils/logger')
 
 const config = require('./config/config.json')[process.env.NODE_ENV || 'development']
 

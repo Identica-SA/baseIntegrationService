@@ -1,5 +1,5 @@
 const express = require('express')
-const IdentiError = require('../database/models/identiError')
+const IdentiError = require('../utils/identiError')
 const { checkInput, errorHandler } = require('../utils/utils')
 const codes = require('../utils/codes')
 
