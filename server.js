@@ -6,12 +6,12 @@ const Logger = require('./utils/logger')
 
 const config = require('./config/config.json')[process.env.NODE_ENV || 'development']
 
+const logger = new Logger(config.tagsToRemove)
 const testRoute = require('./routes/testRoute')
 const baseRoute = require('./routes/baseRoute')
 
 // --- VARIABLES ---
 const app = express()
-const logger = new Logger(config.tagsToRemove)
 
 if (process.env.NODE_ENV === 'production') {
   logger.info('PRODUCTION')
