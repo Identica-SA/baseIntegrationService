@@ -102,6 +102,9 @@ class Logger {
       }
     }
 
+    logger.err = logger.error
+    logger.warning = logger.warn
+
     onHeaders(res, function () {
       var diff = process.hrtime(startAt)
       var time = diff[0] * 1e3 + diff[1] * 1e-6
