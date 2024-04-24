@@ -8,7 +8,7 @@ const agent = new https.Agent({
   rejectUnauthorized: false
 });
 
-const keyToRemove = ['accept', 'accept-encoding', 'connection', 'content-length', 'content-type', 'host']
+const keyToRemove = ['accept', 'accept-encoding', 'connection', 'host'] //  'content-length', 'content-type',
 
 
 async function requestCallRest(url, endpoint, method, data, header={}) {
@@ -24,9 +24,7 @@ async function requestCallRest(url, endpoint, method, data, header={}) {
       responseType: 'json',
       responseEncoding: 'utf8',
       headers: {
-        ...header,
-        'content-type': 'application/json',
-        'content-length': buffer.byteLength(JSON.stringify(data), 'utf8')
+        ...header
       },
       data
     }
