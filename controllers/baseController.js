@@ -82,6 +82,50 @@ async function servTest(req) {
   }
 }
 
+
+async function restRequest(req) {
+  try {
+		const config = req.app.get('config')
+		const example1 = req.body.input1
+	  	const fixedHeader = {}
+	  	const requestData = {
+			param1 : example1
+		}
+	  
+	    	const response = await requestCallRest(
+	      	  config.service.url,
+	      	  config.service.endpoint,
+	      	  config.service.method,
+	      	  requestData,
+	      	  fixedHeader
+	    	)
+	  
+	      	if (!response?.data) {
+	      		throw new IdentiError({ ...CODES.[NAME_INIT]003 }, 200)
+	    	}
+            
+
+		return {...CODES.[NAME_INIT]001, message: {} }
+		 
+  } catch (error) {
+    if (['JsonWebTokenError', 'TokenExpiredError', 'NotBeforeError'].includes(error.name)) {
+      throw new IdentiError({
+				...CODES.[NAME_INIT]003, // unique error
+				error: err.message === undefined ? err : err.message
+			}, 403)
+    } 
+		if (['axiosError'].includes(error.name)) { // this is only an example
+      throw new IdentiError({
+				...CODES.[NAME_INIT]004, // unique error
+				error: err.message === undefined ? err : err.message
+			}, 403)
+    }
+    const errorMessage = `restRequest Uncatched Error: ` + error.message === undefined ? error : error.message
+    req.logger.err( errorMessage )
+    throw new IdentiError( CODES.[NAME_INIT]000, 500 )
+  }
+}
+
 // ***** LOCAL NEEDED FUNCTIONS ******
 
 // async function parseXmlString(xmlString) {
