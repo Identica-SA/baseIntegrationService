@@ -55,6 +55,10 @@ function isError(value) {
   }
 }
 
+function isNumber(value) {
+  return !isNaN(parseFloat(value)) && !isNaN(value - 0)
+}
+
 function checkInput(req, res, next) {
   const errors = validationResult(req)
   if (!errors.isEmpty()) {
@@ -76,6 +80,7 @@ module.exports = {
   isString,
   isFunction,
   isError,
+  isNumber,
   checkInput,
   errorHandler
 }
