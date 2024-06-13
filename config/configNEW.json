@@ -8,10 +8,10 @@
         },
         "database": {
             "init": true,
-            "connectionType":"mongodb",
+            "connectionType":"mongodb+srv",
             "url": "[DB_URL]",
             "user": "---",
-            "password:": "---"
+            "password": "---"
         },
         "service":{
             "url": "http://8.8.8.8",
@@ -31,7 +31,7 @@
             "connectionType":"mongodb+srv",
             "url": "[DB_URL]",
             "user": "---",
-            "password:": "---"
+            "password": "---"
         },
         "service":{
             "url": "http://8.8.8.8",
@@ -51,7 +51,7 @@
             "connectionType":"mongodb+srv",
             "url": "[DB_URL]",
             "user": "---",
-            "password:": "---"
+            "password": "---"
         },
         "service":{
             "url": "http://8.8.8.8",
