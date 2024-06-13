@@ -1,7 +1,7 @@
 const IdentiError = require('../utils/identiError')
 const CODES = require('../utils/codes')
 
-const { requestCallRest, requestCallXml } = require('../utils/requestCall')
+const { requestCallRest, requestCallXml, isAxiosError } = require('../utils/requestCall')
 const { isError } = require('../utils/utils') // call util function if needed
 
 const baseCRUD = require('../database/functions/base')
@@ -71,7 +71,7 @@ async function servTest(req) {
 				error: err.message === undefined ? err : err.message
 			}, 403)
     } 
-		if (['axiosError'].includes(error.name)) { // this is only an example
+	if (isAxiosError(error)) { // this is only an example
       throw new IdentiError({
 				...CODES.[NAME_INIT]004, // unique error
 				error: err.message === undefined ? err : err.message
@@ -114,7 +114,7 @@ async function restRequest(req) {
 				error: err.message === undefined ? err : err.message
 			}, 403)
     } 
-		if (['axiosError'].includes(error.name)) { // this is only an example
+	if (isAxiosError(error)) { // this is only an example
       throw new IdentiError({
 				...CODES.[NAME_INIT]004, // unique error
 				error: err.message === undefined ? err : err.message

@@ -50,7 +50,12 @@ async function requestCallXml (xml, method, url) {
   }
 };
 
+function isAxiosError(error) {
+  return axios.isAxiosError(error)
+}
+
 module.exports = {
   requestCallRest,
-  requestCallXml  
+  requestCallXml,
+  isAxiosError
 }
