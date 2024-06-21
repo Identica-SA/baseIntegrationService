@@ -139,7 +139,12 @@ async function restRequest(req) {
 
 // async function parseXmlCDATAString(xmlString) {
 // 	try {
-// 			const result = await xml2js.parseStringPromise(xmlString, { explicitArray: false, explicitRoot: false, mergeAttrs: true });
+// 			const result = await xml2js.parseStringPromise(xmlString, {
+// 				ignoreAttrs: true,
+// 				explicitArray: false,
+// 				explicitRoot: false,
+// 				mergeAttrs: true
+// 			  });
 // 			return result;
 // 	} catch (err) {
 // 			throw err;
