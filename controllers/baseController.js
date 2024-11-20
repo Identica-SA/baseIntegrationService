@@ -108,6 +108,10 @@ async function restRequest(req) {
 		return {...CODES.[NAME_INIT]001, message: {} }
 		 
   } catch (error) {
+
+	if (error instanceof IdentiError){
+		throw (error)
+	}
     if (['JsonWebTokenError', 'TokenExpiredError', 'NotBeforeError'].includes(error.name)) {
       throw new IdentiError({
 				...CODES.[NAME_INIT]003, // unique error

@@ -46,18 +46,21 @@ router.post(
 //   \ V / _ \| |__ | || |) / _ \| |  | | (_) | .` | | _| >  <\__ \
 //    \_/_/ \_\____|___|___/_/ \_\_| |___\___/|_|\_| |___/_/\_\___/
 
+// DATES VALIDATION EXAMPLE
 // // body('docDate', 'Missing Parameter: docDate').notEmpty(),
 // // body('docDate', 'The docDate field must be array dd/mm/YYYY' ).if(body('docDate').notEmpty()).matches(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/) ,
 
+// Email Validation Example
 // // body('email'  , 'Missing Parameter: email').notEmpty(),
 // // body('email'  , 'Must be a string of a correct email ')
 // // .if(body('email').notEmpty()).matches(/^[A-Za-z0-9+_.-]+@(.+)+[a-zA-Z]{2,6}$/),
 
+// Cellhpone Validation Example
 // // body('celular', 'Missing Parameter: celular').notEmpty() ,
 // // body('celular', 'Parameter: celular should be a COLOMBIAN phone Number' ).
 // // if(body('celular').notEmpty()).isNumeric().isLength({min: 10, max:10}),
 
-// // // ONE OF
+// // // ---  ONE OF EXAMPLE ---
 
 // // body('user', 'Missing Parameter: user').notEmpty(),
 // // oneOf([
@@ -69,21 +72,22 @@ router.post(
 // // ],
 // // { message: 'Missing Parameter in user : (firstName and lastName) or completeName' }),
 
+// // --- HEADER VALIDATION EXAMPLE ---
 // // oneOf([header('x-jwt').exists(), body('jwt').exists()], { message: 'Missing Parameter: x-jwt(header) or jwt(body)' })
 
-// // // OPTIONALS
+// // // --- OPTIONALS EXAMPLE ---
 // // body('city'   , 'Parameter city must be a String').isString().optional({nullable: true}),
 // // body('signB64', 'Parameter signB64 must be a base64 Image').isBase64().optional({nullable: true}),
 // // body('user.phone' , 'Parameter user.phone must be a Numeric').isNumeric().optional({nullable: true}),
 // // body('signature.signPage'  , 'Parameter signature.signPage must be a String').isNumeric().optional({nullable: true}),
 
-// // STOP VALIDATION WHEN SOMETHING FAILED
+// // --- STOP VALIDATION WHEN SOMETHING FAILED ---
 
 // // query('fecha_inicio', 'Missing Parameter: fecha_inicio').exists(),
 // // query('fecha_fin', 'Missing Parameter: fecha_fin').exists().bail(),
 // // query().custom(checkDate)
-
-// // function checkDate(value) {
+// |
+// └-> function checkDate(value) {
 // //     const startDateFormat1 = moment(value.fecha_inicio, 'YYYY-MM-DD', true)
 // //     const endDateFormat1 = moment(value.fecha_fin, 'YYYY-MM-DD', true)
 // //     const startDateFormat2 = moment(value.fecha_inicio, 'YYYY-MM-DDTHH:mm:ss.SSS', true)
