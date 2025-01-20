@@ -46,13 +46,13 @@ const connect = () => {
     logger.info('MongoDB disconnected!')
     mongoose.connect(conUrl, {
       // conURL esta arriba
-      maxPoolSize: 50
+      maxPoolSize: 5
     })
   })
 
   mongoose.connect(conUrl, {
     // conURL esta arriba
-    maxPoolSize: 50
+    maxPoolSize: 5
   })
 }
 
